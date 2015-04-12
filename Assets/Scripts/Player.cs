@@ -9,15 +9,24 @@ public class Player : MonoBehaviour
     public Vector2 jumpForce = new Vector2(0, 300);
 
     public bool GameOver = false;
-    
+
+    private AudioSource audioSource;
+    private Rigidbody2D playerRigidbody;
+
+    private void Start()
+    {
+        this.playerRigidbody = this.GetComponent<Rigidbody2D>();
+        this.audioSource = this.GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     private void Update()
     {
         // Jump
         if (!this.GameOver && Input.GetKeyUp("space"))
         {
-            rigidbody2D.velocity = Vector2.zero;
-            rigidbody2D.AddForce(jumpForce);
+            this.playerRigidbody.velocity = Vector2.zero;
+            this.playerRigidbody.AddForce(jumpForce);
         }
         
         // Die by being off screen
@@ -31,7 +40,7 @@ public class Player : MonoBehaviour
     // Die by collision
     private void OnCollisionEnter2D(Collision2D other)
     {
-        this.audio.PlayOneShot(this.ExplosionSound, 1f);
+        this.audioSource.PlayOneShot(this.ExplosionSound, 1f);
 
         this.Die();
     }
