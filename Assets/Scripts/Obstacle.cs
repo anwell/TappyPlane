@@ -9,6 +9,16 @@ public class Obstacle : MonoBehaviour
     private void Start()
     {
         rigidbody2D.velocity = velocity;
-        transform.position = new Vector3(transform.position.x, transform.position.y - range * Random.value, transform.position.z);
+        this.transform.position = new Vector3(transform.position.x, transform.position.y - range * Random.value, transform.position.z);
+    }
+
+    private void Update()
+    {
+        // Test if the obstacle is out of the screen.
+        if (this.transform.position.x <= -30f)
+        {
+            // Suicide.
+            DestroyObject(this.gameObject);
+        }
     }
 }
