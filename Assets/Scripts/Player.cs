@@ -2,6 +2,8 @@
 
 public class Player : MonoBehaviour
 {
+    public AudioClip ExplosionSound;
+
     // The force which is added when the player jumps
     // This can be changed in the Inspector window
     public Vector2 jumpForce = new Vector2(0, 300);
@@ -29,6 +31,8 @@ public class Player : MonoBehaviour
     // Die by collision
     private void OnCollisionEnter2D(Collision2D other)
     {
+        this.audio.PlayOneShot(this.ExplosionSound, 1f);
+
         this.Die();
     }
 
