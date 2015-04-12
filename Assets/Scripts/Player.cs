@@ -6,22 +6,13 @@ public class Player : MonoBehaviour
     // This can be changed in the Inspector window
     public Vector2 jumpForce = new Vector2(0, 300);
 
-    [UnityEngine.SerializeField]
-    private GameObject getReadyGameObject;
-
-    private bool gameOver = false;
-
-    private void Start()
-    {
-        // Delete the "Get Ready" panel in 3 seconds. 
-        this.Invoke("CleanStartingUI", 3f);
-    }
+    public bool GameOver = false;
     
     // Update is called once per frame
     private void Update()
     {
         // Jump
-        if (!this.gameOver && Input.GetKeyUp("space"))
+        if (!this.GameOver && Input.GetKeyUp("space"))
         {
             rigidbody2D.velocity = Vector2.zero;
             rigidbody2D.AddForce(jumpForce);
@@ -44,15 +35,13 @@ public class Player : MonoBehaviour
     private void Die()
     {
         // We can die once time only.
-        if (this.gameOver)
+        if (this.GameOver)
         {
             return;
         }
 
-        this.gameOver = true;
-
-        this.CleanStartingUI();
-
+        this.GameOver = true;
+        
         // Draw the Game over screen.
         Application.LoadLevelAdditive("GameOver");
 
@@ -63,14 +52,5 @@ public class Player : MonoBehaviour
     private void RestartGame()
     {
         Application.LoadLevel(Application.loadedLevel);
-    }
-
-    private void CleanStartingUI()
-    {
-        if (this.getReadyGameObject != null)
-        {
-            DestroyObject(this.getReadyGameObject);
-            this.getReadyGameObject = null;
-        }
     }
 }
