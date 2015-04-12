@@ -6,7 +6,16 @@ public class Player : MonoBehaviour
     // This can be changed in the Inspector window
     public Vector2 jumpForce = new Vector2(0, 300);
 
+    [UnityEngine.SerializeField]
+    private GameObject getReadyGameObject;
+
     private bool gameOver = false;
+
+    private void Start()
+    {
+        // Delete the "Get Ready" panel in 3 seconds. 
+        this.Invoke("CleanStartingUI", 3f);
+    }
     
     // Update is called once per frame
     private void Update()
@@ -42,6 +51,8 @@ public class Player : MonoBehaviour
 
         this.gameOver = true;
 
+        this.CleanStartingUI();
+
         // Draw the Game over screen.
         Application.LoadLevelAdditive("GameOver");
 
@@ -52,5 +63,14 @@ public class Player : MonoBehaviour
     private void RestartGame()
     {
         Application.LoadLevel(Application.loadedLevel);
+    }
+
+    private void CleanStartingUI()
+    {
+        if (this.getReadyGameObject != null)
+        {
+            DestroyObject(this.getReadyGameObject);
+            this.getReadyGameObject = null;
+        }
     }
 }

@@ -3,7 +3,11 @@
 public class Generate : MonoBehaviour
 {
     public GameObject rocks;
-    int score = 0;
+
+    [UnityEngine.SerializeField]
+    private GUIStyle scoreGuiStyle;
+
+    private int score = 0;
     
     // Use this for initialization
     private void Start()
@@ -15,7 +19,7 @@ public class Generate : MonoBehaviour
     private void OnGUI() 
     {
         GUI.color = Color.black;
-        GUILayout.Label(" Score: " + score.ToString());
+        GUILayout.Label(" Score: " + score.ToString(), this.scoreGuiStyle);
     }
 
     private void CreateObstacle()
