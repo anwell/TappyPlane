@@ -11,4 +11,11 @@ public class Obstacle : MonoBehaviour
 		rigidbody2D.velocity = velocity;
 		transform.position = new Vector3(transform.position.x, transform.position.y - range * Random.value, transform.position.z);
 	}
+	//This method will destroy the obstacles once they are off the screen.
+	void Update(){
+		if(gameObject.transform.position.x < -23)
+		{
+			Destroy(gameObject);
+		}
+	}
 }
